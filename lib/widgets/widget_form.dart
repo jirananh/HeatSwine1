@@ -5,13 +5,15 @@ class WidgetForm extends StatelessWidget {
   const WidgetForm({
     Key? key,
     this.labelText,
+    this.validator,
   }) : super(key: key);
 
 final String? labelText;
+final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextFormField(validator: validator,
       decoration: InputDecoration(
         filled: true,
         border: InputBorder.none,
