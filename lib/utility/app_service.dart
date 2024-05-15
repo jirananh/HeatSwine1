@@ -35,4 +35,16 @@ class AppService {
 
     return caseAnimals;
   }
+
+  List<String> findListCaseAnimal({required List<String> cases}) {
+    var result = <String>[];
+
+     for (var i = 0; i < cases.length; i++) {
+      if (appController.chooseCaseAnimals[i]) {
+        result.add(cases[i]);
+      }
+       
+     }
+    return result;
+  }
 }

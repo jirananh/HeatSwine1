@@ -26,7 +26,15 @@ class DisplayDetail extends StatefulWidget {
 
 class _DisplayDetailState extends State<DisplayDetail> {
   AppController appController = Get.put(AppController());
-final keyForm = GlobalKey<FormState>();
+  final keyForm = GlobalKey<FormState>();
+
+  var cases =<String>[];
+  @override
+  void initState() {
+    super.initState();
+    appController.display.value = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +44,8 @@ final keyForm = GlobalKey<FormState>();
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Form(key: keyForm,
+        child: Form(
+          key: keyForm,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
@@ -48,14 +57,14 @@ final keyForm = GlobalKey<FormState>();
               WidgetTextList(
                   head: 'Farm', value: widget.swineCodeModel.farmfarmcode),
               const SizedBox(height: 8),
-               WidgetForm(validator: (p0) {
-                if (p0?.isEmpty??true) {
-                  return 'กรุณากรอก ข้อมูล ด้วยค่ะ';
-                } else {
-                  return null;
-                }
-                
-              },
+              WidgetForm(
+                validator: (p0) {
+                  if (p0?.isEmpty ?? true) {
+                    return 'กรุณากรอก ข้อมูล ด้วยค่ะ';
+                  } else {
+                    return null;
+                  }
+                },
                 labelText: 'คอก :',
               ),
               const SizedBox(height: 8),
@@ -66,32 +75,48 @@ final keyForm = GlobalKey<FormState>();
                     if (appController.chooseCaseAnimals.isNotEmpty) {
                       appController.chooseCaseAnimals.clear();
                     }
-          
+
                     List<CaseAnimalModel>? caseAnimals = snapshot.data;
                     for (var element in caseAnimals!) {
                       appController.chooseCaseAnimals.add(false);
+
+                      cases.add(element.caseAnimal);
                     }
-          
+
                     return Obx(
                       () {
                         print(
                             'chooseCaseAnimal ---> ${appController.chooseCaseAnimals.length}');
-                        return ListView.builder(
-                          itemCount: caseAnimals.length,
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => SizedBox(
-                            width: Get.width * 0.8,
-                            child: CheckboxListTile(
-                              value: appController.chooseCaseAnimals[index],
-                              onChanged: (value) {
-                                appController.chooseCaseAnimals[index] = value;
-                              },
-                              title:
-                                  WidgetText(data: caseAnimals[index].caseAnimal),
-                              controlAffinity: ListTileControlAffinity.leading,
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListView.builder(
+                              itemCount: caseAnimals.length,
+                              physics: const ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => SizedBox(
+                                width: Get.width * 0.8,
+                                child: CheckboxListTile(
+                                  value: appController.chooseCaseAnimals[index],
+                                  onChanged: (value) {
+                                    appController.chooseCaseAnimals[index] =
+                                        value;
+                                  },
+                                  title: WidgetText(
+                                      data: caseAnimals[index].caseAnimal),
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                ),
+                              ),
                             ),
-                          ),
+                            appController.display.value
+                                ? const WidgetText(
+                                    data:
+                                        'กรุณากรอกข้อมูล อย่างน้อย 1 รายการค่ะ',
+                                    style: TextStyle(color: GFColors.DANGER),
+                                  )
+                                : const SizedBox(),
+                          ],
                         );
                       },
                     );
@@ -107,9 +132,26 @@ final keyForm = GlobalKey<FormState>();
       bottomSheet: WidgetButton(
         text: 'Finish',
         onPressed: () {
+          appController.display.value = true;
+
+          if (appController.chooseCaseAnimals.contains(true)) {
+            appController.display.value = false;
+          }
 
           if (keyForm.currentState!.validate()) {
-            
+            if (!appController.display.value) {
+              //ข้อมูลพร้อม
+
+              String swineCode = widget.swineCodeModel.swinecode;
+              String farmfarmCode = widget.swineCodeModel.farmfarmcode;
+              String age = widget.swineCodeModel.birthdate;
+              var listCaseAnimals = AppService().findListCaseAnimal(cases: cases);
+
+              print('swineCode ---> $swineCode');
+              print('farmfarmCode ---> $farmfarmCode');
+              print('age ---> $age');
+              print('listCaseAnimals ---> $listCaseAnimals');
+            }
           }
         },
         fullWidthButton: true,

@@ -8,4 +8,6 @@ class AppController extends GetxController {
   RxInt amountLoad = 100.obs;
 
   RxList chooseCaseAnimals =  <bool>[].obs;
+
+  RxBool display = false.obs;
 }
