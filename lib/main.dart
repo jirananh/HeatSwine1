@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: ListSwineCode(),
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 77, 204, 81))),
+              seedColor: Color.fromARGB(255, 35, 159, 39))),
     );
   }
 }
