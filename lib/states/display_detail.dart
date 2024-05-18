@@ -34,6 +34,13 @@ class _DisplayDetailState extends State<DisplayDetail> {
   void initState() {
     super.initState();
     appController.display.value = false;
+
+    if (appController.startTimes.isNotEmpty) {
+      appController.startTimes.clear();
+      appController.startTimes.add(DateTime.now());
+    } else {
+      appController.startTimes.add(DateTime.now());
+    }
   }
 
   @override
@@ -50,19 +57,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  WidgetTextRich(
-                      head: 'วันที่ (Start Time)',
-                      value: AppService()
-                          .changeTimeToSting(datetime: DateTime.now())),
-                  WigetIconButton(
-                    icon: Icons.date_range,
-                    onPressed: () {},
-                  )
-                ],
-              ),
+              displayStartTime(context),
               const SizedBox(height: 8),
               WidgetTextRich(
                   head: 'อายุ', value: widget.swineCodeModel.birthdate),
@@ -170,6 +165,70 @@ class _DisplayDetailState extends State<DisplayDetail> {
         },
         fullWidthButton: true,
       ),
+    );
+  }
+
+  Row displayStartTime(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Obx(() => appController.startTimes.isEmpty
+            ? const SizedBox()
+            : WidgetTextRich(
+                head: 'วันที่ (Start Time)',
+                value: AppService().changeTimeToSting(
+                    datetime: appController.startTimes.last))),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WigetIconButton(
+              icon: Icons.date_range,
+              onPressed: () async {
+                var chooseDateTime = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(appController.startTimes.last.year - 1),
+                  lastDate: DateTime.now(),
+                  initialDate: appController.startTimes.last,
+                );
+
+                if (chooseDateTime != null) {
+                  var result = DateTime(
+                      chooseDateTime.year,
+                      chooseDateTime.month,
+                      chooseDateTime.day,
+                      appController.startTimes.last.hour,
+                      appController.startTimes.last.minute);
+
+                  appController.startTimes.add(result);
+                }
+              },
+            ),
+            WigetIconButton(
+              icon: Icons.watch,
+              onPressed: () async {
+                TimeOfDay timeOfDay = TimeOfDay(
+                    hour: appController.startTimes.last.hour,
+                    minute: appController.startTimes.last.minute);
+
+                var timePicker = await showTimePicker(
+                    context: context, initialTime: timeOfDay);
+
+                if (timePicker != null) {
+                  DateTime newDateTime = DateTime(
+                    appController.startTimes.last.year,
+                    appController.startTimes.last.month,
+                    appController.startTimes.last.day,
+                    timePicker.hour,
+                    timePicker.minute,
+                  );
+
+                  appController.startTimes.add(newDateTime);
+                }
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
