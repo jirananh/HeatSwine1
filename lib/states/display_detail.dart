@@ -28,7 +28,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
   AppController appController = Get.put(AppController());
   final keyForm = GlobalKey<FormState>();
 
-  var cases =<String>[];
+  var cases = <String>[];
   @override
   void initState() {
     super.initState();
@@ -49,7 +49,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              WidgetTextList(head: 'วันที่', value: DateTime.now().toString()),
+              WidgetTextList(head: 'วันที่ (Start Time)', value: AppService().changeTimeToSting(datetime: DateTime.now())),
               const SizedBox(height: 8),
               WidgetTextList(
                   head: 'อายุ', value: widget.swineCodeModel.birthdate),
@@ -145,7 +145,8 @@ class _DisplayDetailState extends State<DisplayDetail> {
               String swineCode = widget.swineCodeModel.swinecode;
               String farmfarmCode = widget.swineCodeModel.farmfarmcode;
               String age = widget.swineCodeModel.birthdate;
-              var listCaseAnimals = AppService().findListCaseAnimal(cases: cases);
+              var listCaseAnimals =
+                  AppService().findListCaseAnimal(cases: cases);
 
               print('swineCode ---> $swineCode');
               print('farmfarmCode ---> $farmfarmCode');

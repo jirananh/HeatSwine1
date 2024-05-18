@@ -5,9 +5,16 @@ import 'package:formanimal/models/case_animal_model.dart';
 import 'package:formanimal/models/swine_code_model.dart';
 import 'package:formanimal/utility/app_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AppService {
   AppController appController = Get.put(AppController());
+
+  String changeTimeToSting({required DateTime datetime}) {
+    DateFormat dateFormat = DateFormat('yy-MM-dd HH:mm');
+    String result = dateFormat.format(datetime);
+    return result;
+  }
 
   Future<void> readSwineCode() async {
     String urlApi =
@@ -39,12 +46,11 @@ class AppService {
   List<String> findListCaseAnimal({required List<String> cases}) {
     var result = <String>[];
 
-     for (var i = 0; i < cases.length; i++) {
+    for (var i = 0; i < cases.length; i++) {
       if (appController.chooseCaseAnimals[i]) {
         result.add(cases[i]);
       }
-       
-     }
+    }
     return result;
   }
 }
