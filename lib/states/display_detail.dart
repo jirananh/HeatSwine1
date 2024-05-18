@@ -8,7 +8,8 @@ import 'package:formanimal/utility/app_service.dart';
 import 'package:formanimal/widgets/widget_button.dart';
 import 'package:formanimal/widgets/widget_form.dart';
 import 'package:formanimal/widgets/widget_text.dart';
-import 'package:formanimal/widgets/widget_text_lich.dart';
+import 'package:formanimal/widgets/widget_text_rich.dart';
+import 'package:formanimal/widgets/wiget_icon_button.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 
@@ -39,7 +40,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: WidgetTextList(
+        title: WidgetTextRich(
             head: 'swinecode', value: widget.swineCodeModel.swinecode),
       ),
       body: GestureDetector(
@@ -49,12 +50,24 @@ class _DisplayDetailState extends State<DisplayDetail> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              WidgetTextList(head: 'วันที่ (Start Time)', value: AppService().changeTimeToSting(datetime: DateTime.now())),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  WidgetTextRich(
+                      head: 'วันที่ (Start Time)',
+                      value: AppService()
+                          .changeTimeToSting(datetime: DateTime.now())),
+                  WigetIconButton(
+                    icon: Icons.date_range,
+                    onPressed: () {},
+                  )
+                ],
+              ),
               const SizedBox(height: 8),
-              WidgetTextList(
+              WidgetTextRich(
                   head: 'อายุ', value: widget.swineCodeModel.birthdate),
               const SizedBox(height: 8),
-              WidgetTextList(
+              WidgetTextRich(
                   head: 'Farm', value: widget.swineCodeModel.farmfarmcode),
               const SizedBox(height: 8),
               WidgetForm(

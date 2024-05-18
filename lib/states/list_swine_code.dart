@@ -5,7 +5,7 @@ import 'package:formanimal/utility/app_constant.dart';
 import 'package:formanimal/utility/app_controller.dart';
 import 'package:formanimal/utility/app_service.dart';
 import 'package:formanimal/widgets/widget_text.dart';
-import 'package:formanimal/widgets/widget_text_lich.dart';
+import 'package:formanimal/widgets/widget_text_rich.dart';
 import 'package:get/get.dart';
 
 class ListSwineCode extends StatefulWidget {
@@ -65,17 +65,17 @@ class _ListSwineCodeState extends State<ListSwineCode> {
                             WidgetText(
                                 data: appController
                                     .swineCodeModels[index].swinecode),
-                            WidgetTextList(
+                            WidgetTextRich(
                               head: 'OfficeCode',
                               value: appController
                                   .swineCodeModels[index].officeofficecode,
                             ),
-                            WidgetTextList(
+                            WidgetTextRich(
                               head: 'farmfarmcode',
                               value: appController
                                   .swineCodeModels[index].farmfarmcode,
                             ),
-                            WidgetTextList(
+                            WidgetTextRich(
                               head: 'gendergendercode',
                               value: appController
                                   .swineCodeModels[index].gendergendercode,

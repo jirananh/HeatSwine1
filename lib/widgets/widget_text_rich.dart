@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class WidgetTextList extends StatelessWidget {
-  const WidgetTextList({
+class WidgetTextRich extends StatelessWidget {
+  const WidgetTextRich({
     Key? key,
     required this.head,
     required this.value,
