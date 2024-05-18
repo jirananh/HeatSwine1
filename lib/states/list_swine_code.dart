@@ -36,7 +36,7 @@ class _ListSwineCodeState extends State<ListSwineCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Obx(() => appController.swineCodeModels.isEmpty
+          child: Obx(() => ((appController.swineCodeModels.isEmpty))
               ? const SizedBox()
               : EasyRefresh(
                   controller: easyRefreshController,
@@ -62,9 +62,17 @@ class _ListSwineCodeState extends State<ListSwineCode> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            WidgetText(
-                                data: appController
-                                    .swineCodeModels[index].swinecode),
+                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                WidgetText(
+                                  data: appController
+                                      .swineCodeModels[index].swinecode,
+                                  style: AppConstant().h2Style(),
+                                ),
+
+                                Icon(Icons.check_box)
+                              ],
+                            ),
                             WidgetTextRich(
                               head: 'OfficeCode',
                               value: appController
