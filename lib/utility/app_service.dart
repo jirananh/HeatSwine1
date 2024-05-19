@@ -41,6 +41,21 @@ class AppService {
     });
   }
 
+  Future<HeatDetactionModel?> readHeadDetaction({required String swineCode}) async {
+    HeatDetactionModel? heatDetactionModel;
+    String urlApiGetHeatdetactionWhereSwineCodeJi =
+        'https://www.androidthai.in.th/fluttertraining/ungdata/getHeatdetactionWhereSwineCodeJi.php?isAdd=true&swineCode=$swineCode';
+
+    var result = await Dio().get(urlApiGetHeatdetactionWhereSwineCodeJi);
+
+    if (result.toString() != 'null') {
+      for (var element in json.decode(result.data)) {
+        heatDetactionModel = HeatDetactionModel.fromMap(element);
+      }
+    }
+    return heatDetactionModel;
+  }
+
   Future<List<CaseAnimalModel>> readCaseAnimal() async {
     var caseAnimals = <CaseAnimalModel>[];
     String urlApi =
