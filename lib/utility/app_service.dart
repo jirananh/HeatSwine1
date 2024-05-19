@@ -27,16 +27,6 @@ class AppService {
       for (var element in json.decode(value.data)) {
         SwineCodeModel swineCodeModel = SwineCodeModel.fromMap(element);
         appController.swineCodeModels.add(swineCodeModel);
-
-        // String urlApiGetHeatdetactionWhereSwineCodeJi =
-        //     'https://www.androidthai.in.th/fluttertraining/ungdata/getHeatdetactionWhereSwineCodeJi.php?isAdd=true&swineCode=${swineCodeModel.swinecode}';
-        // await Dio().get(urlApiGetHeatdetactionWhereSwineCodeJi).then((value) {
-        //   if (value.toString() == 'null') {
-        //     appController.checkSwineCodes.add(false);
-        //   } else {
-        //     appController.checkSwineCodes.add(true);
-        //   }
-        // });
       }
     });
   }
@@ -89,5 +79,17 @@ class AppService {
         'https://www.androidthai.in.th/fluttertraining/ungdata/insertHeatDetactionJi.php?isAdd=true&swineCode=${heatDetactionModel.swineCode}&farmFarmCode=${heatDetactionModel.farmFarmCode}&age=${heatDetactionModel.age}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&recorder=${heatDetactionModel.recorder}&inspector=${heatDetactionModel.inspector}&weight=${heatDetactionModel.wight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.brestRight}&pen=${heatDetactionModel.pen}';
 
     await Dio().get(urlApi).then((value) => Get.back());
+  }
+
+  Future<List<String>> chengeStringToArray({required String string}) async {
+    String textString = string;
+    textString = textString.substring(1, textString.length - 1);
+
+    var result = textString.split(',');
+    for (var i = 0; i < result.length; i++) {
+      result[i] = result[i].trim();
+    }
+
+    return result;
   }
 }
