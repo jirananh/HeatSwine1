@@ -76,7 +76,7 @@ class AppService {
   Future<void> processInsertHeatDetaction(
       {required HeatDetactionModel heatDetactionModel}) async {
     String urlApi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/insertHeatDetactionJi.php?isAdd=true&swineCode=${heatDetactionModel.swineCode}&farmFarmCode=${heatDetactionModel.farmFarmCode}&age=${heatDetactionModel.age}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&recorder=${heatDetactionModel.recorder}&inspector=${heatDetactionModel.inspector}&weight=${heatDetactionModel.wight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.brestRight}&pen=${heatDetactionModel.pen}';
+        'https://www.androidthai.in.th/fluttertraining/ungdata/insertHeatDetactionJi.php?isAdd=true&swineCode=${heatDetactionModel.swineCode}&farmFarmCode=${heatDetactionModel.farmFarmCode}&age=${heatDetactionModel.age}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&recorder=${heatDetactionModel.recorder}&inspector=${heatDetactionModel.inspector}&weight=${heatDetactionModel.weight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.breastRight}&pen=${heatDetactionModel.pen}';
 
     await Dio().get(urlApi).then((value) => Get.back());
   }

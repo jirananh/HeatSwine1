@@ -153,9 +153,9 @@ class _DisplayDetailState extends State<DisplayDetail> {
                       AppService().changeTimeToSting(datetime: DateTime.now()),
                   recorder: '',
                   inspector: '',
-                  wight: weightController.text,
+                  weight: weightController.text,
                   breastLeft: breastLeftController.text,
-                  brestRight: breastRightController.text,
+                  breastRight: breastRightController.text,
                   pen: penController.text);
 
               print('modelv -------> ${model.toMap()}');

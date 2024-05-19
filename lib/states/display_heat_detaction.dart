@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:formanimal/models/heat_detection_model.dart';
 import 'package:formanimal/models/swine_code_model.dart';
+import 'package:formanimal/states/edit_heat_detaction.dart';
 import 'package:formanimal/utility/app_constant.dart';
 import 'package:formanimal/utility/app_dialog.dart';
 import 'package:formanimal/utility/app_service.dart';
@@ -83,7 +84,10 @@ class _DisplayHeatDetactionState extends State<DisplayHeatDetaction> {
                         children: [
                           WidgetIconButton(
                             icon: Icons.edit,
-                            onPressed: () {},
+                            onPressed: () {
+
+                              Get.to(EditHeatDetaction(heatDetactionModel: widget.heatDeactionModels[index]));
+                            },
                             type: GFButtonType.outline2x,
                           ),
                           const SizedBox(
@@ -142,13 +146,13 @@ class _DisplayHeatDetactionState extends State<DisplayHeatDetaction> {
                       head: 'คอก', value: widget.heatDeactionModels[index].pen),
                   WidgetTextRich(
                       head: 'น้ำหนัก',
-                      value: widget.heatDeactionModels[index].wight),
+                      value: widget.heatDeactionModels[index].weight),
                   WidgetTextRich(
                       head: 'เต้านมซ้าย',
                       value: widget.heatDeactionModels[index].breastLeft),
                   WidgetTextRich(
                       head: 'เต้านมขวา',
-                      value: widget.heatDeactionModels[index].brestRight),
+                      value: widget.heatDeactionModels[index].breastRight),
                   WidgetText(
                     data: 'Case :',
                     style: AppConstant().h2Style(size: 15),

@@ -11,9 +11,9 @@ class HeatDetactionModel {
   final String finishTime;
   final String recorder;
   final String inspector;
-  final String wight;
+  final String weight;
   final String breastLeft;
-  final String brestRight;
+  final String breastRight;
   final String pen;
   HeatDetactionModel({
     this.id,
@@ -25,9 +25,9 @@ class HeatDetactionModel {
     required this.finishTime,
     required this.recorder,
     required this.inspector,
-    required this.wight,
+    required this.weight,
     required this.breastLeft,
-    required this.brestRight,
+    required this.breastRight,
     required this.pen,
   });
 
@@ -42,9 +42,9 @@ class HeatDetactionModel {
       'finishTime': finishTime,
       'recorder': recorder,
       'inspector': inspector,
-      'wight': wight,
+      'weight': weight,
       'breastLeft': breastLeft,
-      'brestRight': brestRight,
+      'breastRight': breastRight,
       'pen': pen,
     };
   }
@@ -60,9 +60,9 @@ class HeatDetactionModel {
       finishTime: (map['finishTime'] ?? '') as String,
       recorder: (map['recorder'] ?? '') as String,
       inspector: (map['inspector'] ?? '') as String,
-      wight: (map['wight'] ?? '') as String,
+      weight: (map['weight'] ?? '') as String,
       breastLeft: (map['breastLeft'] ?? '') as String,
-      brestRight: (map['brestRight'] ?? '') as String,
+      breastRight: (map['breastRight'] ?? '') as String,
       pen: (map['pen'] ?? '') as String,
     );
   }
