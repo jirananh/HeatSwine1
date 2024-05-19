@@ -74,7 +74,11 @@ class _DisplayDetailState extends State<DisplayDetail> {
                       onPressed: () {
                         Get.to(DisplayHeatDetaction(
                             swineCodeModel: widget.swineCodeModel,
-                            heatDeactionModels: result));
+                            heatDeactionModels: result))?.then((value) {
+                              setState(() {
+                                
+                              });
+                            });
                       },
                     ),
                   );
@@ -292,7 +296,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            WigetIconButton(
+            WidgetIconButton(
               icon: Icons.date_range,
               onPressed: () async {
                 var chooseDateTime = await showDatePicker(
@@ -314,7 +318,7 @@ class _DisplayDetailState extends State<DisplayDetail> {
                 }
               },
             ),
-            WigetIconButton(
+            WidgetIconButton(
               icon: Icons.watch,
               onPressed: () async {
                 TimeOfDay timeOfDay = TimeOfDay(

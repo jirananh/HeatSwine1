@@ -2,17 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
-class WigetIconButton extends StatelessWidget {
-  const WigetIconButton({
+class WidgetIconButton extends StatelessWidget {
+  const WidgetIconButton({
     Key? key,
     required this.icon,
     required this.onPressed,
     this.type,
+    this.color,
   }) : super(key: key);
 
   final IconData icon;
   final Function() onPressed;
   final GFButtonType? type;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class WigetIconButton extends StatelessWidget {
       icon: Icon(icon),
       onPressed: onPressed,
       type: type ?? GFButtonType.transparent,
-      color: Theme.of(context).primaryColor,
+      color: color ?? Theme.of(context).primaryColor,
     );
   }
 }
