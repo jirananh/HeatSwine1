@@ -55,6 +55,31 @@ class _DisplayDetailState extends State<DisplayDetail> {
       appBar: AppBar(
         title: WidgetTextRich(
             head: 'swinecode', value: widget.swineCodeModel.swinecode),
+        actions: [
+          FutureBuilder(
+            future: AppService()
+                .readHeadDetaction(swineCode: widget.swineCodeModel.swinecode),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var result = snapshot.data;
+
+                if (result!.isEmpty) {
+                  return const SizedBox();
+                } else {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 16),
+                    child: WidgetButton(
+                      text: 'ดูข้อมูล',
+                      onPressed: () {},
+                    ),
+                  );
+                }
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ],
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -126,7 +151,8 @@ class _DisplayDetailState extends State<DisplayDetail> {
 
               print('modelv -------> ${model.toMap()}');
 
-              AppService().processInsertHeatDetaction(heatDetactionModel: model);
+              AppService()
+                  .processInsertHeatDetaction(heatDetactionModel: model);
             }
           }
         },
