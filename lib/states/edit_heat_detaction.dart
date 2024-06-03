@@ -174,9 +174,8 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
             const SizedBox(width: 4),
             WidgetIconButton(
               icon: Icons.watch,
-              onPressed: ()async {
-
-                 TimeOfDay timeOfDay = TimeOfDay(
+              onPressed: () async {
+                TimeOfDay timeOfDay = TimeOfDay(
                     hour: appController.startTimes.last.hour,
                     minute: appController.startTimes.last.minute);
 
@@ -192,9 +191,10 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
                     timePicker.minute,
                   );
 
-                 // appController.startTimes.add(newDateTime);
+                  // appController.startTimes.add(newDateTime);
 
-                  String string = AppService().changeTimeToSting(datetime: newDateTime);
+                  String string =
+                      AppService().changeTimeToSting(datetime: newDateTime);
                   appController.displayFinishTimes.add(string);
                 }
               },
@@ -270,8 +270,8 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        WidgetTextRich(
-            head: 'น้ำหนัก', value: widget.heatDetactionModel.weight),
+        Obx(() => WidgetTextRich(
+            head: 'น้ำหนัก', value: appController.heatDetactionModels.last.weight)),
         WidgetIconButton(
           icon: Icons.edit,
           onPressed: () {
@@ -287,7 +287,17 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
                 ),
                 firstAction: WidgetButton(
                   text: 'Edit',
-                  onPressed: () {},
+                  onPressed: () {
+                    Map<String, dynamic> map =
+                        appController.heatDetactionModels.last.toMap();
+                    map['weight'] = textEditingController.text;
+
+                    HeatDetactionModel model = HeatDetactionModel.fromMap(map);
+
+                    appController.heatDetactionModels.add(model);
+
+                    Get.back();
+                  },
                 ));
           },
           type: GFButtonType.outline2x,
