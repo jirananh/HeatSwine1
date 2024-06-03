@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetMaterialApp(debugShowCheckedModeBanner: false,
       home: const ListSwineCode(),
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
