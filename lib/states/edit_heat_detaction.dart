@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'package:flutter/material.dart';
 
 import 'package:formanimal/models/heat_detection_model.dart';
 import 'package:formanimal/utility/app_controller.dart';
 import 'package:formanimal/utility/app_dialog.dart';
+import 'package:formanimal/utility/app_service.dart';
 import 'package:formanimal/widgets/widget_button.dart';
 import 'package:formanimal/widgets/widget_form.dart';
 import 'package:formanimal/widgets/widget_text_rich.dart';
@@ -32,6 +32,8 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
     super.initState();
 
     appController.heatDetactionModels.add(widget.heatDetactionModel);
+
+    appController.displayStartTimes.add(widget.heatDetactionModel.startTime);
   }
 
   @override
@@ -65,19 +67,67 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        WidgetTextRich(
-            head: 'StartTime', value: widget.heatDetactionModel.startTime),
+        Obx(() => WidgetTextRich(
+            head: 'StartTime', value: appController.displayStartTimes.last)),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             WidgetIconButton(
               icon: Icons.date_range,
-              onPressed: () {},
+              onPressed: () async {
+                var chooseDateTime = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(appController.startTimes.last.year - 1),
+                  lastDate: DateTime.now(),
+                  initialDate: appController.startTimes.last,
+                );
+
+                if (chooseDateTime != null) {
+                  var result = DateTime(
+                      chooseDateTime.year,
+                      chooseDateTime.month,
+                      chooseDateTime.day,
+                      appController.startTimes.last.hour,
+                      appController.startTimes.last.minute);
+
+                  appController.startTimes.add(result);
+
+                  String string =
+                      AppService().changeTimeToSting(datetime: result);
+                  appController.displayStartTimes.add(string);
+                }
+              },
               type: GFButtonType.outline2x,
             ),
             WidgetIconButton(
               icon: Icons.watch,
-              onPressed: () {},
+              onPressed: ()async {
+
+
+                TimeOfDay timeOfDay = TimeOfDay(
+                    hour: appController.startTimes.last.hour,
+                    minute: appController.startTimes.last.minute);
+
+                var timePicker = await showTimePicker(
+                    context: context, initialTime: timeOfDay);
+
+                if (timePicker != null) {
+                  DateTime newDateTime = DateTime(
+                    appController.startTimes.last.year,
+                    appController.startTimes.last.month,
+                    appController.startTimes.last.day,
+                    timePicker.hour,
+                    timePicker.minute,
+                  );
+
+                  appController.startTimes.add(newDateTime);
+
+                  String string =
+                      AppService().changeTimeToSting(datetime: newDateTime);
+                  appController.displayStartTimes.add(string);
+                }
+
+              },
               type: GFButtonType.outline2x,
             ),
           ],
@@ -97,7 +147,7 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
           children: [
             WidgetIconButton(
               icon: Icons.date_range,
-              onPressed: () {},
+              onPressed: () async {},
               type: GFButtonType.outline2x,
             ),
             WidgetIconButton(

@@ -17,4 +17,6 @@ RxList checkSwineCodes = <bool>[].obs;
   RxList heatDetactionModels = <HeatDetactionModel>[].obs;
 
   RxBool displaylistSearch = false.obs;
+
+  RxList displayStartTimes = <String>[].obs;
 }
