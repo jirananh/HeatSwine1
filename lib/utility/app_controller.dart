@@ -6,10 +6,13 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class AppController extends GetxController {
   RxList swineCodeModels = <SwineCodeModel>[].obs;
-RxList checkSwineCodes = <bool>[].obs;
+  RxList checkSwineCodes = <bool>[].obs;
 
   RxInt amountLoad = 100.obs;
-  RxList chooseCaseAnimals =  <bool>[].obs;
+  RxList chooseCaseAnimals = <bool>[].obs;
+
+  RxList chooseEditCaseAnimals = <bool>[].obs;
+  
   RxBool display = false.obs;
 
   RxList startTimes = <DateTime>[].obs;
@@ -19,5 +22,6 @@ RxList checkSwineCodes = <bool>[].obs;
   RxBool displaylistSearch = false.obs;
 
   RxList displayStartTimes = <String>[].obs;
+
   RxList displayFinishTimes = <String>[].obs;
 }

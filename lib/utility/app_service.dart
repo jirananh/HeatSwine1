@@ -68,12 +68,9 @@ class AppService {
     for (var i = 0; i < cases.length; i++) {
       if (appController.chooseCaseAnimals[i]) {
         result.add(cases[i]);
-      }else{
+      } else {
         result.add('');
       }
-
-
-
     }
     return result;
   }
@@ -99,10 +96,16 @@ class AppService {
   }
 
   Future<void> processDeleteHeatDetactionById({required String id}) async {
+    String urlApi =
+        'https://www.androidthai.in.th/fluttertraining/ungdata/deleteHeatWhereidJi.php?isAdd=true&id=$id';
 
-String urlApi = 'https://www.androidthai.in.th/fluttertraining/ungdata/deleteHeatWhereidJi.php?isAdd=true&id=$id';
+    await Dio().get(urlApi);
+  }
 
-await Dio().get(urlApi);
-
+  Future<void> findChooseEditCaseAnimal(
+      {required String listCaseAnimals}) async {
+    String string = listCaseAnimals;
+    string = string.substring(1, string.length - 1);
+    print('string =====> $string');
   }
 }
