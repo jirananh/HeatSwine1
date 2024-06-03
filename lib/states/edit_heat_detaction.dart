@@ -34,6 +34,7 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
     appController.heatDetactionModels.add(widget.heatDetactionModel);
 
     appController.displayStartTimes.add(widget.heatDetactionModel.startTime);
+    appController.displayFinishTimes.add(widget.heatDetactionModel.finishTime);
   }
 
   @override
@@ -99,11 +100,10 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
               },
               type: GFButtonType.outline2x,
             ),
+            const SizedBox(width: 4),
             WidgetIconButton(
               icon: Icons.watch,
-              onPressed: ()async {
-
-
+              onPressed: () async {
                 TimeOfDay timeOfDay = TimeOfDay(
                     hour: appController.startTimes.last.hour,
                     minute: appController.startTimes.last.minute);
@@ -126,7 +126,6 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
                       AppService().changeTimeToSting(datetime: newDateTime);
                   appController.displayStartTimes.add(string);
                 }
-
               },
               type: GFButtonType.outline2x,
             ),
@@ -140,19 +139,65 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        WidgetTextRich(
-            head: 'FinishTime', value: widget.heatDetactionModel.finishTime),
+        Obx(() => WidgetTextRich(
+            head: 'FinishTime', value: appController.displayFinishTimes.last)),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             WidgetIconButton(
               icon: Icons.date_range,
-              onPressed: () async {},
+              onPressed: () async {
+                var chooseDateTime = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(appController.startTimes.last.year - 1),
+                  lastDate: DateTime.now(),
+                  initialDate: appController.startTimes.last,
+                );
+
+                if (chooseDateTime != null) {
+                  var result = DateTime(
+                      chooseDateTime.year,
+                      chooseDateTime.month,
+                      chooseDateTime.day,
+                      appController.startTimes.last.hour,
+                      appController.startTimes.last.minute);
+
+                  // appController.startTimes.add(result);
+
+                  String string =
+                      AppService().changeTimeToSting(datetime: result);
+                  appController.displayFinishTimes.add(string);
+                }
+              },
               type: GFButtonType.outline2x,
             ),
+            const SizedBox(width: 4),
             WidgetIconButton(
               icon: Icons.watch,
-              onPressed: () {},
+              onPressed: ()async {
+
+                 TimeOfDay timeOfDay = TimeOfDay(
+                    hour: appController.startTimes.last.hour,
+                    minute: appController.startTimes.last.minute);
+
+                var timePicker = await showTimePicker(
+                    context: context, initialTime: timeOfDay);
+
+                if (timePicker != null) {
+                  DateTime newDateTime = DateTime(
+                    appController.startTimes.last.year,
+                    appController.startTimes.last.month,
+                    appController.startTimes.last.day,
+                    timePicker.hour,
+                    timePicker.minute,
+                  );
+
+                 // appController.startTimes.add(newDateTime);
+
+                  String string = AppService().changeTimeToSting(datetime: newDateTime);
+                  appController.displayFinishTimes.add(string);
+                }
+              },
               type: GFButtonType.outline2x,
             ),
           ],

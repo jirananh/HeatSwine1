@@ -19,4 +19,5 @@ RxList checkSwineCodes = <bool>[].obs;
   RxBool displaylistSearch = false.obs;
 
   RxList displayStartTimes = <String>[].obs;
+  RxList displayFinishTimes = <String>[].obs;
 }
