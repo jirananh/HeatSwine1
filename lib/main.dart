@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: ListSwineCode(),
+      home: const ListSwineCode(),
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 35, 159, 39))),
+              seedColor: const Color.fromARGB(255, 35, 159, 39))),
     );
   }
 }
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
 class MyHttpOverride extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    // TODO: implement createHttpClient
     return super.createHttpClient(context)
       ..badCertificateCallback = (cert, host, port) => true;
   }
