@@ -105,7 +105,22 @@ class AppService {
   Future<void> findChooseEditCaseAnimal(
       {required String listCaseAnimals}) async {
     String string = listCaseAnimals;
+
+    if (appController.chooseEditCaseAnimals.isNotEmpty) {
+      appController.chooseEditCaseAnimals.clear();
+    }
+
     string = string.substring(1, string.length - 1);
     print('string =====> $string');
+
+    List<String> strings = string.split(',');
+    print('ขนาดของ strings ----> ${strings.length}');
+
+    for (var i = 0; i < strings.length; i++) {
+      appController.chooseEditCaseAnimals.add(strings[i].trim().isNotEmpty);
+    }
+
+   
+    print('choseEditCaseAnimals ----> ${appController.chooseEditCaseAnimals}');
   }
 }
