@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:formanimal/models/case_animal_model.dart';
 import 'package:formanimal/models/heat_detection_model.dart';
 import 'package:formanimal/models/swine_code_model.dart';
+import 'package:formanimal/states/list_swine_code.dart';
+import 'package:formanimal/utility/app_constant.dart';
 import 'package:formanimal/utility/app_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +21,7 @@ class AppService {
 
   Future<void> readSwineCode() async {
     String urlApi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/getSwineCode.php';
+        '${AppConstant.domain}getSwineCode.php';
 
     await Dio().get(urlApi).then((value) async {
       // print('value ---. $value');
@@ -35,7 +37,7 @@ class AppService {
       {required String swineCode}) async {
     var heatDetactionModels = <HeatDetactionModel>[];
     String urlApiGetHeatdetactionWhereSwineCodeJi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/getHeatdetactionWhereSwineCodeJi.php?isAdd=true&swineCode=$swineCode';
+        '${AppConstant.domain}getHeatdetactionWhereSwineCodeJi.php?isAdd=true&swineCode=$swineCode';
 
     var result = await Dio().get(urlApiGetHeatdetactionWhereSwineCodeJi);
 
@@ -51,12 +53,18 @@ class AppService {
 
   Future<List<CaseAnimalModel>> readCaseAnimal() async {
     var caseAnimals = <CaseAnimalModel>[];
+
+    if (appController.caseAnimal.isNotEmpty) {
+      appController.caseAnimal.clear();
+    }
     String urlApi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/getCaseAnimalJi.php';
+        '${AppConstant.domain}getCaseAnimalJi.php';
     var result = await Dio().get(urlApi);
     for (var element in json.decode(result.data)) {
       CaseAnimalModel model = CaseAnimalModel.fromMap(element);
       caseAnimals.add(model);
+
+      appController.caseAnimal.add(model.caseAnimal);
     }
 
     return caseAnimals;
@@ -78,7 +86,7 @@ class AppService {
   Future<void> processInsertHeatDetaction(
       {required HeatDetactionModel heatDetactionModel}) async {
     String urlApi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/insertHeatDetactionJi.php?isAdd=true&swineCode=${heatDetactionModel.swineCode}&farmFarmCode=${heatDetactionModel.farmFarmCode}&age=${heatDetactionModel.age}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&recorder=${heatDetactionModel.recorder}&inspector=${heatDetactionModel.inspector}&weight=${heatDetactionModel.weight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.breastRight}&pen=${heatDetactionModel.pen}';
+        '${AppConstant.domain}insertHeatDetactionJi.php?isAdd=true&swineCode=${heatDetactionModel.swineCode}&farmFarmCode=${heatDetactionModel.farmFarmCode}&age=${heatDetactionModel.age}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&recorder=${heatDetactionModel.recorder}&inspector=${heatDetactionModel.inspector}&weight=${heatDetactionModel.weight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.breastRight}&pen=${heatDetactionModel.pen}';
 
     await Dio().get(urlApi).then((value) => Get.back());
   }
@@ -97,7 +105,7 @@ class AppService {
 
   Future<void> processDeleteHeatDetactionById({required String id}) async {
     String urlApi =
-        'https://www.androidthai.in.th/fluttertraining/ungdata/deleteHeatWhereidJi.php?isAdd=true&id=$id';
+        '${AppConstant.domain}deleteHeatWhereidJi.php?isAdd=true&id=$id';
 
     await Dio().get(urlApi);
   }
@@ -120,7 +128,20 @@ class AppService {
       appController.chooseEditCaseAnimals.add(strings[i].trim().isNotEmpty);
     }
 
-   
     print('choseEditCaseAnimals ----> ${appController.chooseEditCaseAnimals}');
+  }
+
+  Future<void> processEditHeatDacTion(
+      {required HeatDetactionModel heatDetactionModel}) async {
+    print('heatDetactionModel =====> ${heatDetactionModel.toMap()}');
+
+    String urlApi =
+        '${AppConstant.domain}editheatdetacWhereIDJi.php?isAdd=true&id=${heatDetactionModel.id}&listCaseAnimals=${heatDetactionModel.listCaseAnimals}&startTime=${heatDetactionModel.startTime}&finishTime=${heatDetactionModel.finishTime}&weight=${heatDetactionModel.weight}&breastLeft=${heatDetactionModel.breastLeft}&breastRight=${heatDetactionModel.breastRight}&pen=${heatDetactionModel.pen}';
+
+    await Dio().get(urlApi).then(
+      (value) {
+        Get.offAll(const ListSwineCode());
+      },
+    );
   }
 }

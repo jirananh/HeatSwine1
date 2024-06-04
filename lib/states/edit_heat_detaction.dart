@@ -55,7 +55,40 @@ class _EditHeatDetactionState extends State<EditHeatDetaction> {
                   margin: const EdgeInsets.only(right: 16),
                   child: WidgetButton(
                     text: 'Save',
-                    onPressed: () {},
+                    onPressed: () {
+                      var listCaseAnimals = <String>[];
+                      for (var i = 0;
+                          i < appController.chooseEditCaseAnimals.length;
+                          i++) {
+                        String string = '';
+
+                        if (appController.chooseEditCaseAnimals[i]) {
+                          string = appController.caseAnimal[i];
+                        }
+
+                        listCaseAnimals.add(string);
+                      }
+
+                      HeatDetactionModel model = HeatDetactionModel(
+                          id: widget.heatDetactionModel.id,
+                          swineCode: widget.heatDetactionModel.swineCode,
+                          farmFarmCode: widget.heatDetactionModel.farmFarmCode,
+                          age: widget.heatDetactionModel.age,
+                          listCaseAnimals: listCaseAnimals.toString(),
+                          startTime: appController.displayStartTimes.last,
+                          finishTime: appController.displayFinishTimes.last,
+                          recorder: widget.heatDetactionModel.recorder,
+                          inspector: widget.heatDetactionModel.inspector,
+                          weight: appController.heatDetactionModels.last.weight,
+                          breastLeft:
+                              appController.heatDetactionModels.last.breastLeft,
+                          breastRight: appController
+                              .heatDetactionModels.last.breastRight,
+                          pen: appController.heatDetactionModels.last.pen);
+
+                      AppService()
+                          .processEditHeatDacTion(heatDetactionModel: model);
+                    },
                   ),
                 )
               : const SizedBox())

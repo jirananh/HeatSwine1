@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppConstant {
+
+  static String domain = 'http://www.livestockinfore.com/app/';
+
+
   BoxDecoration curebox() => BoxDecoration(border: Border.all());
 
   TextStyle h1Style({

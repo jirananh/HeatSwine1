@@ -26,4 +26,6 @@ class AppController extends GetxController {
   RxList displayFinishTimes = <String>[].obs;
 
   RxBool displaySave = false.obs;
+
+  RxList caseAnimal = <String>[].obs;
 }
