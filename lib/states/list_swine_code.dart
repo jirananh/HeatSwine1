@@ -159,16 +159,20 @@ class _ListSwineCodeState extends State<ListSwineCode> {
               ],
             ),
             WidgetTextRich(
-              head: 'OfficeCode',
-              value: swineCodeModel.officeofficecode,
-            ),
-            WidgetTextRich(
-              head: 'farmfarmcode',
+              head: 'ฟาร์ม',
               value: swineCodeModel.farmfarmcode,
             ),
             WidgetTextRich(
-              head: 'gendergendercode',
-              value: swineCodeModel.gendergendercode,
+              head: 'เล้า',
+              value: swineCodeModel.househouseno,
+            ),
+            WidgetTextRich(
+              head: 'สาขา',
+              value: swineCodeModel.branchbranchcode,
+            ),
+            WidgetTextRich(
+              head: 'น้ำหนัก',
+              value: swineCodeModel.weight,
             ),
           ],
         ),
