@@ -47,13 +47,11 @@ class _DisplayHeatDetactionState extends State<DisplayHeatDetaction> {
             ),
           ),
           WidgetTextRich(
-              head: 'farmfarmcode', value: widget.swineCodeModel.farmfarmcode),
+              head: 'ฟาร์ม', value: widget.swineCodeModel.farmfarmcode),
           WidgetTextRich(
-              head: 'officeofficecode',
-              value: widget.swineCodeModel.farmfarmcode),
+              head: 'สำนักงาน', value: widget.swineCodeModel.officeofficecode),
           WidgetTextRich(
-              head: 'branchbranchcode',
-              value: widget.swineCodeModel.farmfarmcode),
+              head: 'สาขา', value: widget.swineCodeModel.branchbranchcode),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: .8),
             child: WidgetText(
@@ -85,8 +83,9 @@ class _DisplayHeatDetactionState extends State<DisplayHeatDetaction> {
                           WidgetIconButton(
                             icon: Icons.edit,
                             onPressed: () {
-
-                              Get.to(EditHeatDetaction(heatDetactionModel: widget.heatDeactionModels[index]));
+                              Get.to(EditHeatDetaction(
+                                  heatDetactionModel:
+                                      widget.heatDeactionModels[index]));
                             },
                             type: GFButtonType.outline2x,
                           ),
