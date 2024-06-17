@@ -49,6 +49,8 @@ class _DisplayHeatDetactionState extends State<DisplayHeatDetaction> {
           WidgetTextRich(
               head: 'ฟาร์ม', value: widget.swineCodeModel.farmfarmcode),
           WidgetTextRich(
+              head: 'เล้า', value: widget.swineCodeModel.househouseno),
+          WidgetTextRich(
               head: 'สำนักงาน', value: widget.swineCodeModel.officeofficecode),
           WidgetTextRich(
               head: 'สาขา', value: widget.swineCodeModel.branchbranchcode),
